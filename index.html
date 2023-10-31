@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CepFácil</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+<body>
+<h1>Bem vindos ao CepFácil</h1><br/><br/>
+
+<h4> Digite um CEP para encontrar um endereço:</h4><h4>O CEP deve conter apenas 8 digitos</h4>
+<form action="{% url 'cep' %}" method="post">
+    {% csrf_token %}
+    <div>
+        <label for="CEP">CEP:</label>  <!-- Corrija a etiqueta e o ID para "CEP" -->
+        <input type="text" id="CEP" name="CEP">  <!-- Corrija o name para "CEP" -->
+        <input type="submit" value="Enviar">
+
+    </div>
+</form>
+
+{% if endereco %}
+    <p>Endereço retornado:</p>
+    <ul>
+        <li>{{ endereco.logradouro }}</li>
+        <li>{{ endereco.bairro }}</li>
+        <li>{{ endereco.localidade }}</li>
+        <li>{{ endereco.uf }}</li>
+    </ul>
+{% endif %}
+
+
+    {% if erro %}
+        <p>{{ erro }}</p>
+    {% endif %}
+
+
+</body>
+</html>
